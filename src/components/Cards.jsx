@@ -50,7 +50,7 @@ export const Cards = () => {
             {loading && <p>Cargando...</p>}
             {error && <p>Error: {error}</p>}
             {!loading && !error && personajes.map((personaje) => (
-                <Card key={personaje.id} nombre={personaje.name} imagen={personaje.image} especie={personaje.species} estado={personaje.status}/>
+                <Card key={personaje.id} id={personaje.id} nombre={personaje.name} imagen={personaje.image} especie={personaje.species} estado={personaje.status}/>
             ))}
         </div>
     </>
