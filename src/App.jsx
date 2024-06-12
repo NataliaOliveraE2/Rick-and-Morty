@@ -1,5 +1,6 @@
 import React from 'react'
 import Container from './components/Container'
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
   return (

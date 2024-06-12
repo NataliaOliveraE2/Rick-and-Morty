@@ -15,10 +15,6 @@ const Card = ({id, nombre, imagen, especie, estado}) => {
                 <li className="list-group-item">Especie: {especie} </li>
                 <li className="list-group-item">Estado: {estado} </li>
             </ul>
-            {/* <div className="card-body">
-                <a href="#" className="card-link">Card link</a>
-                <a href="#" className="card-link">Another link</a>
-            </div> */}
         </div>
     </div>
   )
