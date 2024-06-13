@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'; 
+import '../styles/style.css';
 
 const Card = ({id, nombre, imagen, especie, estado}) => {
 
   return (
-    <div>
+    <div className="custom-card">
         <div className="card" style={{width: "20rem"}}>
             <Link to={`/detalles/${id}`}>
                 <img src={imagen} class="card-img-top" alt="primera imagen"/>
