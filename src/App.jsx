@@ -6,8 +6,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 const App = () => {
   return (
     <div>
-      <h1>Personajes de Rick and Morty</h1>
-      <hr />
       <Router>
         <Routes>
           <Route path="/" element={<Container />} />
