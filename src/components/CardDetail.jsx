@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import '../styles/style.css';
 import Footer from "./layout/Footer";
+import { translate } from "../translations/translate";
 
 const CardDetail = () => {
   const { id } = useParams();
@@ -37,11 +38,11 @@ const CardDetail = () => {
               <h5 className="card-title">{personaje.name}</h5>
             </div>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">Genero: {personaje.gender} </li>
+              <li className="list-group-item">Genero: {translate("gender", personaje.gender)} </li>
               <li className="list-group-item">Origen: {personaje.origin.name} </li>
               <li className="list-group-item">Ubicacion actual: {personaje.location.name} </li>
-              <li className="list-group-item">Especie: {personaje.species} </li>
-              <li className="list-group-item">Estado: {personaje.status} </li>
+              <li className="list-group-item">Especie: {translate("species", personaje.species)} </li>
+              <li className="list-group-item">Estado: {translate("status", personaje.status)} </li>
             </ul>
           </div>
         )}

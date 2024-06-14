@@ -1,22 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import '../styles/style.css';
-
-const translate = (key, value) => {
-  const translations = {
-    species: {
-      Human: "Humano",
-      Alien: "Extraterrestre",
-    },
-    status: {
-      Alive: "Vivo",
-      Dead: "Muerto",
-      unknown: "Desconocido",
-    }
-  };
-  
-  return translations[key][value] || value;
-};
+import { translate } from "../translations/translate";
 
 export const Cards = () => {
   const [personajes, setPersonajes] = useState([]);
