@@ -8,41 +8,41 @@ import { translate } from "../translations/translate";
 const CardDetail = () => {
   const { id } = useParams();
 
-  const [personaje, setPersonaje] = useState(null);
+  const [character, setCharacter] = useState(null);
 
-  const buscarPersonaje = async () => {
+  const searchCharacter = async () => {
     try {
       const res = await fetch(
         `https://rickandmortyapi.com/api/character/${id}`
       );
       const data = await res.json();
       console.log(data);
-      setPersonaje(data);
+      setCharacter(data);
     } catch (error) {
       console.error("Error al obtener el personaje:", error);
     }
   };
 
   useEffect(() => {
-    buscarPersonaje();
+    searchCharacter();
   }, [id]);
 
   return (
     <div className="container">
       <i><h1 style={{ color: "white" }}>Detalles Del Personaje</h1></i>
       <div className="center-card">
-        {personaje && (
+        {character && (
           <div className="card" style={{ width: "20rem" }}>
-            <img src={personaje.image} className="card-img-top" alt="primera imagen" />
+            <img src={character.image} className="card-img-top" alt="primera imagen" />
             <div className="card-body">
-              <h5 className="card-title">{personaje.name}</h5>
+              <h5 className="card-title">{character.name}</h5>
             </div>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">Genero: {translate("gender", personaje.gender)} </li>
-              <li className="list-group-item">Origen: {personaje.origin.name} </li>
-              <li className="list-group-item">Ubicacion actual: {personaje.location.name} </li>
-              <li className="list-group-item">Especie: {translate("species", personaje.species)} </li>
-              <li className="list-group-item">Estado: {translate("status", personaje.status)} </li>
+              <li className="list-group-item">Genero: {translate("gender", character.gender)} </li>
+              <li className="list-group-item">Origen: {character.origin.name} </li>
+              <li className="list-group-item">Ubicacion actual: {character.location.name} </li>
+              <li className="list-group-item">Especie: {translate("species", character.species)} </li>
+              <li className="list-group-item">Estado: {translate("status", character.status)} </li>
             </ul>
           </div>
         )}

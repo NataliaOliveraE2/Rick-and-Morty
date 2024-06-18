@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'; 
 import '../styles/style.css';
 
-const Card = ({id, nombre, imagen, especie, estado}) => {
+const Card = ({id, name, image, species, status}) => {
 
   return (
     <div className="custom-card">
         <div className="card" style={{width: "20rem"}}>
             <Link to={`/detalles/${id}`}>
-                <img src={imagen} class="card-img-top" alt="primera imagen"/>
+                <img src={image} class="card-img-top" alt="primera imagen"/>
                 <div className="card-body">
-                    <h5 className="card-title">{nombre}</h5>
+                    <h5 className="card-title">{name}</h5>
                 </div>
                 <ul className="list-group list-group-flush">
-                    <li className="list-group-item">Especie: {especie} </li>
-                    <li className="list-group-item">Estado: {estado} </li>
+                    <li className="list-group-item">Especie: {species} </li>
+                    <li className="list-group-item">Estado: {status} </li>
                 </ul>
             </Link>
         </div>
@@ -25,10 +25,10 @@ const Card = ({id, nombre, imagen, especie, estado}) => {
 
 Card.proptype = {
     id: PropTypes.number,
-    nombre: PropTypes.string,
-    imagen: PropTypes.string,
-    especie: PropTypes.string,
-    estado: PropTypes.string
+    name: PropTypes.string,
+    image: PropTypes.string,
+    species: PropTypes.string,
+    status: PropTypes.string
 }
 
 export default Card

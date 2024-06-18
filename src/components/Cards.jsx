@@ -4,18 +4,18 @@ import '../styles/style.css';
 import { translate } from "../translations/translate";
 
 export const Cards = () => {
-  const [personajes, setPersonajes] = useState([]);
+  const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [limit, setLimit] = useState(5);
 
-  const listaPersonajes = async () => {
+  const charactersList = async () => {
     setLoading(true);
     setError(null);
     try {
       const res = await fetch("https://rickandmortyapi.com/api/character");
       const { results } = await res.json();
-      setPersonajes(results.slice(0, limit));
+      setCharacters(results.slice(0, limit));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -24,11 +24,11 @@ export const Cards = () => {
   };
 
   useEffect(() => {
-    listaPersonajes(limit);
+    charactersList(limit);
   }, [limit]);
 
   const handleReload = () => {
-    listaPersonajes(limit);
+    charactersList(limit);
   };
 
   const handleChangeLimit = (event) => {
@@ -54,14 +54,14 @@ export const Cards = () => {
         {error && <p>Error: {error}</p>}
         {!loading &&
           !error &&
-          personajes.map((personaje) => (
+          characters.map((character) => (
             <Card
-              key={personaje.id}
-              id={personaje.id}
-              nombre={personaje.name}
-              imagen={personaje.image}
-              especie={translate("species", personaje.species)}
-              estado={translate("status", personaje.status)}
+              key={character.id}
+              id={character.id}
+              name={character.name}
+              image={character.image}
+              species={translate("species", character.species)}
+              status={translate("status", character.status)}
             />
           ))}
       </div>
