@@ -1,6 +1,6 @@
 import React from 'react';
-import Container from './components/Container';
-import CardDetail from './components/CardDetail';
+import Container from './pages/Container';
+import CardDetail from './pages/CardDetail';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App = () => {

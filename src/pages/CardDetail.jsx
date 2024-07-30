@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import '../styles/style.css';
-import Footer from "./layout/Footer";
+import Footer from "../components/layout/Footer";
 import { translate } from "../translations/translate";
 
 const CardDetail = () => {
@@ -47,7 +47,7 @@ const CardDetail = () => {
           </div>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
