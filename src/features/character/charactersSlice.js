@@ -1,4 +1,3 @@
-// src/features/characters/charactersSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchCharacters = createAsyncThunk(
@@ -10,6 +9,15 @@ export const fetchCharacters = createAsyncThunk(
   }
 );
 
+export const fetchCharacterById = createAsyncThunk(
+  'characters/fetchCharacterById',
+  async (id) => {
+    const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+    const data = await response.json();
+    return data;
+  }
+);
+
 const charactersSlice = createSlice({
   name: 'characters',
   initialState: {
@@ -17,6 +25,8 @@ const charactersSlice = createSlice({
     status: 'idle',
     error: null,
     limit: 5,
+    selectedCharacter: null,
+    selectedCharacterStatus: 'idle',
   },
   reducers: {
     setLimit: (state, action) => {
@@ -34,6 +44,17 @@ const charactersSlice = createSlice({
       })
       .addCase(fetchCharacters.rejected, (state, action) => {
         state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(fetchCharacterById.pending, (state) => {
+        state.selectedCharacterStatus = 'loading';
+      })
+      .addCase(fetchCharacterById.fulfilled, (state, action) => {
+        state.selectedCharacterStatus = 'succeeded';
+        state.selectedCharacter = action.payload;
+      })
+      .addCase(fetchCharacterById.rejected, (state, action) => {
+        state.selectedCharacterStatus = 'failed';
         state.error = action.error.message;
       });
   },
