@@ -1,59 +1,47 @@
-import React, { useEffect, useState } from "react";
-import Card from "./Card";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCharacters, setLimit } from "../features/character/charactersSlice";
+import Card from "../components/Card";
 import '../styles/style.css';
-import { translate } from "../translations/translate";
+import { translate } from "../translations/translate"; 
 
-export const Cards = () => {
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [limit, setLimit] = useState(5);
-
-  const charactersList = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("https://rickandmortyapi.com/api/character");
-      const { results } = await res.json();
-      setCharacters(results.slice(0, limit));
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+const Cards = () => {
+  const dispatch = useDispatch();
+  const characters = useSelector((state) => state.characters.items);
+  const status = useSelector((state) => state.characters.status);
+  const error = useSelector((state) => state.characters.error);
+  const limit = useSelector((state) => state.characters.limit);
 
   useEffect(() => {
-    charactersList(limit);
-  }, [limit]);
+    dispatch(fetchCharacters(limit));
+  }, [limit, dispatch]);
 
   const handleReload = () => {
-    charactersList(limit);
+    dispatch(fetchCharacters(limit));
   };
 
   const handleChangeLimit = (event) => {
-    setLimit(Number(event.target.value));
+    dispatch(setLimit(Number(event.target.value)));
   };
 
   return (
     <>
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <button onClick={handleReload} className="btn btn-secondary">Recargar Lista</button>
-            <label>
-                Cantidad de personajes a mostrar:
-                <select value={limit} onChange={handleChangeLimit}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={15}>15</option>
-                <option value={20}>20</option>
-                </select>
-            </label>
+          <button onClick={handleReload} className="btn btn-secondary">Recargar Lista</button>
+          <label>
+            Cantidad de personajes a mostrar:
+            <select value={limit} onChange={handleChangeLimit}>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+              <option value={20}>20</option>
+            </select>
+          </label>
         </div>
-        {loading && <p>Cargando...</p>}
-        {error && <p>Error: {error}</p>}
-        {!loading &&
-          !error &&
+        {status === 'loading' && <p>Cargando...</p>}
+        {status === 'failed' && <p>Error: {error}</p>}
+        {status === 'succeeded' &&
           characters.map((character) => (
             <Card
               key={character.id}
@@ -68,3 +56,5 @@ export const Cards = () => {
     </>
   );
 };
+
+export default Cards;

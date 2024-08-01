@@ -7,7 +7,6 @@ import { translate } from "../translations/translate";
 
 const CardDetail = () => {
   const { id } = useParams();
-
   const [character, setCharacter] = useState(null);
 
   const searchCharacter = async () => {
@@ -16,7 +15,6 @@ const CardDetail = () => {
         `https://rickandmortyapi.com/api/character/${id}`
       );
       const data = await res.json();
-      console.log(data);
       setCharacter(data);
     } catch (error) {
       console.error("Error al obtener el personaje:", error);
@@ -40,14 +38,14 @@ const CardDetail = () => {
             <ul className="list-group list-group-flush">
               <li className="list-group-item">Genero: {translate("gender", character.gender)} </li>
               <li className="list-group-item">Origen: {character.origin.name} </li>
-              <li className="list-group-item">Ubicacion actual: {character.location.name} </li>
+              <li className="list-group-item">Ubicación actual: {character.location.name} </li>
               <li className="list-group-item">Especie: {translate("species", character.species)} </li>
               <li className="list-group-item">Estado: {translate("status", character.status)} </li>
             </ul>
           </div>
         )}
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };
