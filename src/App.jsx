@@ -1,9 +1,12 @@
 import React from 'react';
-import Container from './components/Container';
-import CardDetail from './components/CardDetail';
+import Container from './pages/Container';
+import CardDetail from './pages/CardDetail';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const App = () => {
+  const cardState = useSelector(state => state.cards);
+  console.log(cardState);
   return (
     <div>
       <Router>
