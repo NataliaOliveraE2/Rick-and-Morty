@@ -1,35 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCharacterById } from "../features/character/charactersSlice";
 import '../styles/style.css';
 import Footer from "../components/layout/Footer";
 import { translate } from "../translations/translate";
 
 const CardDetail = () => {
   const { id } = useParams();
-  const [character, setCharacter] = useState(null);
-
-  const searchCharacter = async () => {
-    try {
-      const res = await fetch(
-        `https://rickandmortyapi.com/api/character/${id}`
-      );
-      const data = await res.json();
-      setCharacter(data);
-    } catch (error) {
-      console.error("Error al obtener el personaje:", error);
-    }
-  };
+  const dispatch = useDispatch();
+  const character = useSelector((state) => state.characters.selectedCharacter);
+  const status = useSelector((state) => state.characters.selectedCharacterStatus);
 
   useEffect(() => {
-    searchCharacter();
-  }, [id]);
+    dispatch(fetchCharacterById(id));
+  }, [id, dispatch]);
 
   return (
     <div className="container">
       <i><h1 style={{ color: "white" }}>Detalles Del Personaje</h1></i>
       <div className="center-card">
-        {character && (
+        {status === 'loading' && <p>Cargando...</p>}
+        {status === 'failed' && <p>Error al obtener el personaje</p>}
+        {status === 'succeeded' && character && (
           <div className="card" style={{ width: "20rem" }}>
             <img src={character.image} className="card-img-top" alt="primera imagen" />
             <div className="card-body">
